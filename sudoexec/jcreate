@@ -387,7 +387,9 @@ for i in ${CIX_OTHER_ARGS}; do
 	fi
 done
 
-# todo: when 'from' exist: use temprcconf settings to jset fromfile to re-configure default image options
+# cixinit copies the argument list to MYOPTARG and unsets CIXOPTARG.
+# o* keeps the values passed on the command line so they can be applied
+# after the nested jcreate, which only receives the image source.
 
 [ -n "${ofrom}" ] && from="${ofrom}"
 
@@ -503,7 +505,7 @@ if [ -n "${from}" ]; then
 		done
 	fi
 
-	for i in ${CIXOPTARG}; do
+	for i in ${MYOPTARG}; do
 		eval T="\$o${i}"
 
 		case "${i}" in
